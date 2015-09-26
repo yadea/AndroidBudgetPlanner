@@ -19,7 +19,24 @@
         android:layout_height="wrap_content"
         android:padding="16dp"
         android:layout_below="@id/lytHead">
-        
+        <TableRow
+            android:gravity="center_horizontal">
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/abc_btn_check_material"
+                />
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/abc_btn_check_material"
+                />
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/abc_btn_check_material"
+                />
+        </TableRow>
     </TableLayout>
 
     <!--FOOTER-->
