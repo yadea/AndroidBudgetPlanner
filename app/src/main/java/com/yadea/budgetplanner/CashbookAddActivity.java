@@ -4,11 +4,28 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
+import android.widget.RadioButton;
+
+import com.yadea.budgetplanner.common.CashbookDataSource;
+import com.yadea.budgetplanner.model.Cashbook;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class CashbookAddActivity extends AppCompatActivity {
+    RadioButton radExpense;
+    RadioButton radIncome;
+    AutoCompleteTextView txtTitle;
+    EditText txtCategory;
+    EditText txtDate;
+    EditText txtAmount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +34,13 @@ public class CashbookAddActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        radExpense = (RadioButton) findViewById(R.id.radExpense);
+        radIncome = (RadioButton) findViewById(R.id.radIncome);
+        txtTitle = (AutoCompleteTextView) findViewById(R.id.txtTitle);
+        txtCategory = (EditText) findViewById(R.id.txtCategory);
+        txtDate = (EditText) findViewById(R.id.txtDate);
+        txtAmount = (EditText) findViewById(R.id.txtAmount);
     }
 
     @Override
@@ -37,7 +61,21 @@ public class CashbookAddActivity extends AppCompatActivity {
 
         if (id == R.id.action_save) {
             //// TODO: 27/10/2015 add save feature
-            finish();
+            boolean isExpense = radExpense.isChecked();
+            SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
+            try {
+                Cashbook cashEntry = new Cashbook(isExpense, txtTitle.getText().toString(), txtCategory.getText().toString(), dateFormatter.parse(txtDate.getText().toString()), Double.parseDouble(txtAmount.getText().toString()));
+                CashbookDataSource dataSource = new CashbookDataSource(this);
+                dataSource.newEntry(cashEntry);
+            }
+            catch (ParseException ex) {
+                Log.e("Parse Exception: ", ex.toString());
+            }
+            catch (Exception ex) {
+                Log.e("Exception: ", ex.toString());
+            }
+
+                finish();
             return true;
         }
         else if (id == R.id.action_save_add) {
