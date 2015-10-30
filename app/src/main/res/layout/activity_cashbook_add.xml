@@ -41,12 +41,14 @@
                     android:layout_weight="1"
                     android:layout_span="2">
                     <RadioButton
+                        android:id="@+id/radExpense"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Expense"
                         android:checked="true">
                     </RadioButton>
                     <RadioButton
+                        android:id="@+id/radIncome"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Income">
@@ -77,6 +79,7 @@
                     android:layout_height="wrap_content"
                     android:text="Category: "/>
                 <EditText
+                    android:id="@+id/txtCategory"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
@@ -91,6 +94,7 @@
                     android:layout_height="wrap_content"
                     android:text="Date: "/>
                 <EditText
+                    android:id="@+id/txtDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
