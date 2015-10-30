@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--BLACK-->
+    <color name="black">#000000</color>
+
     <!--GREYS-->
     <color name="grey">#E0E0E0</color>
     <color name="grey_app_bar">#F5F5F5</color>
     <color name="grey_body">#FAFAFA</color>
     <color name="white">#FFFFFF</color>
+
+    <!--REDS-->
+    <color name="red">#F44336</color>
 </resources>
