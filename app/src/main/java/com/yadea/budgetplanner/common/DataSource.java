@@ -10,12 +10,12 @@ import com.yadea.budgetplanner.model.Cashbook;
 
 import java.sql.SQLException;
 
-public class CashbookDataSource {
+public class DataSource {
     // Database fields
     private SQLiteDatabase database;
     private SqlLiteHelper dbHelper;
 
-    public CashbookDataSource(Context context) {
+    public DataSource(Context context) {
         dbHelper = new SqlLiteHelper(context);
     }
 
@@ -27,7 +27,20 @@ public class CashbookDataSource {
         dbHelper.close();
     }
 
-    public void newEntry (Cashbook cashbook) {
+    public long add(String databaseName, ContentValues values) {
+        try {
+            open();
+            long insertId = database.insert(databaseName, null,
+                    values);
+            close();
+            return insertId;
+        } catch (Exception ex) {
+            Log.e("db ", ex.toString());
+        }
+        return 0;
+    }
+
+   /* public void newEntry (Cashbook cashbook) {
         try {
             open();
             ContentValues values = new ContentValues();
@@ -42,7 +55,7 @@ public class CashbookDataSource {
         }catch(Exception ex) {
             Log.e("db ", ex.toString());
         }
-    }
+    }*/
 
     /*public void deleteComment(Comment comment) {
         long id = comment.getId();

@@ -1,5 +1,6 @@
 package com.yadea.budgetplanner;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,7 +13,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.RadioButton;
 
-import com.yadea.budgetplanner.common.CashbookDataSource;
+import com.yadea.budgetplanner.common.DataSource;
 import com.yadea.budgetplanner.model.Cashbook;
 
 import java.text.ParseException;
@@ -60,26 +61,12 @@ public class CashbookAddActivity extends AppCompatActivity {
 
 
         if (id == R.id.action_save) {
-            //// TODO: 27/10/2015 add save feature
-            boolean isExpense = radExpense.isChecked();
-            SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
-            try {
-                Cashbook cashEntry = new Cashbook(isExpense, txtTitle.getText().toString(), txtCategory.getText().toString(), dateFormatter.parse(txtDate.getText().toString()), Double.parseDouble(txtAmount.getText().toString()));
-                CashbookDataSource dataSource = new CashbookDataSource(this);
-                dataSource.newEntry(cashEntry);
-            }
-            catch (ParseException ex) {
-                Log.e("Parse Exception: ", ex.toString());
-            }
-            catch (Exception ex) {
-                Log.e("Exception: ", ex.toString());
-            }
-
-                finish();
+            save();
+            finish();
             return true;
         }
         else if (id == R.id.action_save_add) {
-            // // TODO: 27/10/2015 add save feature
+            save();
             Intent intent = new Intent(this,CashbookAddActivity.class);
             startActivity(intent);
             finish();
@@ -87,5 +74,29 @@ public class CashbookAddActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void save() {
+
+        boolean isExpense = radExpense.isChecked();
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            Date date = dateFormatter.parse(txtDate.getText().toString());
+            Cashbook cashEntry = new Cashbook(isExpense, txtTitle.getText().toString(), txtCategory.getText().toString(), dateFormatter.parse(txtDate.getText().toString()), Double.parseDouble(txtAmount.getText().toString()));
+            DataSource dataSource = new DataSource(this);
+            ContentValues values = new ContentValues();
+            values.put("Expense", isExpense);
+            values.put("Title", txtTitle.getText().toString());
+            values.put("Category", txtCategory.getText().toString());
+            values.put("Date", date.toString());
+            values.put("Amount", Double.parseDouble(txtAmount.getText().toString()));
+            dataSource.add("Cashbook",values);
+        }
+        catch (ParseException ex) {
+            Log.e("Parse Exception: ", ex.toString());
+        }
+        catch (Exception ex) {
+            Log.e("Exception: ", ex.toString());
+        }
     }
 }
