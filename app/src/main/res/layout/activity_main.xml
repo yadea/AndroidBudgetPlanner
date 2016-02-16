@@ -13,4 +13,10 @@
         android:layout_gravity="start" android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_main" app:menu="@menu/activity_main_drawer" />
 
+    <ListView
+        android:id="@+id/lstItemList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </ListView>
+
 </android.support.v4.widget.DrawerLayout>

@@ -14,10 +14,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import com.yadea.budgetplanner.model.Cashbook;
+import com.yadea.budgetplanner.model.ListAdapter;
+
+import java.sql.Date;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     Context context;
+    ListView lstItemList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +34,12 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Cashbook[] cashbooks = new Cashbook[3];
+        cashbooks[0] = new Cashbook(false,"allowance", "income", Date.valueOf("26/10/2015"),200.00d);
+        cashbooks[1] = new Cashbook(false,"lunch", "meals", Date.valueOf("27/10/2015"),5.00d);
+        cashbooks[2] = new Cashbook(false,"dinner", "meals", Date.valueOf("27/10/2015"),25.00d);
+        lstItemList = (ListView) findViewById(R.id.lstItemList);
+        lstItemList.setAdapter(new ListAdapter(this,))
 
         context = this;
 
@@ -105,5 +120,11 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        String item = (String) getListAdapter().getItem(position);
+        Toast.makeText(this, item + " selected", Toast.LENGTH_LONG).show();
     }
 }

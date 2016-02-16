@@ -5,7 +5,7 @@
     android:padding="6dip" >
 
     <TextView
-        android:id="@+id/txtDate"
+        android:id="@+id/lblDate"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_alignParentTop="true"
@@ -24,12 +24,48 @@
         android:layout_alignParentLeft="true"
         android:text="WED"
         android:gravity="center"
-        android:layout_below="@id/txtDate"/>
+        android:layout_below="@id/lblDate"/>
 
-    <ListView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/lstItems"
-        android:layout_toRightOf="@id/txtDate"
+    <TextView
+        android:id="@+id/lblTotal"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="@color/red"
+        android:text="RM20.00"/>
+
+    <TableLayout
+        android:id="@+id/tblItems"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lblTotal"
+        android:layout_toRightOf="@id/lblDate">
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/lblTitle"
+                android:text="Lunch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+            <TextView
+                android:id="@+id/lblAmount"
+                android:text="RM20.00"
+                />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:id="@+id/lblDesc"
+                android:text="I had very delicious chicken rice for lunch..."
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+            <View />
+        </TableRow>
+    </TableLayout>
 
 </RelativeLayout>
